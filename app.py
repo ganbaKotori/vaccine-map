@@ -14,7 +14,7 @@ UPLOAD_FOLDER = 'vaccine-map\photo-submission'
 
 app = Flask(__name__)
 
-client = MongoClient('mongodb+srv://aramirez:Alex123@cluster0.bii1t.mongodb.net/smartcitizen?retryWrites=true&w=majority', ssl=True,ssl_cert_reqs='CERT_NONE')
+client = MongoClient('', ssl=True,ssl_cert_reqs='CERT_NONE')
 
 mydb = client["smartcitizen"]
 mycol = mydb["zipCodes"]
