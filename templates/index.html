@@ -24,7 +24,9 @@
     <div class="col fileUpload">
       File Upload
       <form method="POST" action="/">
-        {{ form.name.label }} {{ form.name(size=20) }}
+        {{ form.name.label }}<br> {{ form.name(size=20) }}<br>
+        <label for="myfile">Select a file:</label><br>
+        <input type="file" id="myfile" name="myfile">
       </form>
     </div>
     <div class="col" id="map">
