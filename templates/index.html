@@ -21,11 +21,8 @@
 {% block content %}
 <div class="container">
   <div class="row">
-    <div class="col fileUpload">
-      File Upload Test
-      <form method="POST" action="/">
-        {{ form.name.label }} {{ form.name(size=20) }}
-      </form>
+    <div class="col">
+      <a href="{{ url_for( 'upload_file' ) }}" class="btn btn-primary btn-lg" role="button">Contribute to a Better Covid-free Future</a>
     </div>
     <div class="col" id="map">
     </div>
@@ -37,7 +34,6 @@
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(map);
-
     L.marker([51.5, -0.09])
       .addTo(map)
       .bindPopup("A pretty CSS3 popup.<br> Easily customizable.")
