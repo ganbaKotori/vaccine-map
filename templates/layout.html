@@ -28,20 +28,48 @@
     .container {
       margin-top: 3em;
     }
+
+    .container-sm {
+      margin-top: 3em;
+    }
+
+
+
+    #upload_map {
+      height: 500px;
+      width: 700px;
+    }
+
+    .image_slideshow {
+      height:300px
+    }
+
+    .vaccinated_post_image{
+      height: 150px;
+      width: 200px;
+    }
+
+    .vaccine_card_showcase{
+      height: 500px;
+      width: 600px;
+      overflow: scroll;
+    }
+
+    .showcase_iamge{
+      height: 300px;
+      width: 400px;
+    }
   </style>
 
   <body>
-    <nav class="navbar navbar-dark bg-dark">
+    <nav class="navbar navbar-dark " style="background-color: #ff3737;">
         <div class="container-fluid">
             <a class="navbar-brand">Vaccine Map</a>
-            <form class="d-flex">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
           </div>
       </nav>
     {% block content %}{% endblock %}
     <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   </body>
 
 </html>
