@@ -1,5 +1,5 @@
 
-from flask import Flask, render_template, request, jsonify, redirect
+from flask import Flask, render_template, request, jsonify, redirect, url_for
 
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired
@@ -46,15 +46,15 @@ app.config['SECRET_KEY'] = SECRET_KEY
 def home():
     mycursor.execute("SELECT * FROM vaccine_posts")
     myresult = mycursor.fetchall()
-    jsonString = json.dumps(myresult)
-    print(jsonString)
+    #jsonString = json.dumps(myresult)
+    #print(jsonString)
     #for x in myresult:
     #    print(x)
     return render_template(
         'index.html',
         title="Vaccine Maps",
         description="Check a vaccine heat map",
-        data=jsonString
+        data=myresult
     )
 
 @app.route('/upload', methods = ['GET', 'POST'])
@@ -75,11 +75,7 @@ def upload_file():
 
       mycursor.execute("SELECT * FROM vaccine_posts")
       myresult = mycursor.fetchall()
-      return render_template('index.html',
-            title="Vaccine Maps",
-            description="Check a vaccine heat map",
-            data=myresult
-            )
+      return redirect(url_for('home'))
     return render_template('upload.html')
   
 if __name__ == '__main__':
