@@ -4,17 +4,7 @@
   <title>{{title}}</title>
   <meta charset="utf-8" />
   <meta name="description" content="{{description}}" />
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-    crossorigin=""
-  />
-  <script
-    src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-    crossorigin=""
-  ></script>
+
 
 </head>
 
@@ -25,6 +15,7 @@
       File Upload
       <form method="POST" action="/">
         {{ form.name.label }}<br> {{ form.name(size=20) }}<br>
+        {{ form.zip_code.label }}<br> {{ form.zip_code(size=20) }}<br>
         <label for="myfile">Select a file:</label><br>
         <input type="file" id="myfile" name="myfile">
       </form>
@@ -34,16 +25,21 @@
     <div class="col"><h1>List</h1><h1>List</h1><h1>List</h1></div>
   </div>
   <script>
-    var map = L.map("map").setView([51.505, -0.09], 13);
+    var map = L.map("map").setView([45.53, -122.64], 8);
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(map);
 
-    L.marker([51.5, -0.09])
+    L.marker([45.53, -122.64])
       .addTo(map)
       .bindPopup("A pretty CSS3 popup.<br> Easily customizable.")
       .openPopup();
+
+    L.esri.featureLayer({
+  url: 'https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/USA_Boundaries_2020/FeatureServer/5',
+  token: 'AAPKf76892cc6a6c4991afdaf131e9036ae8uNmbgTWaM0o89MmqTncGnroGfhE3Eb0IHhk2IIxv6XexFYKY0YM-16G_J8xv89T_'
+}).addTo(map);
   </script>
 </div>
 
