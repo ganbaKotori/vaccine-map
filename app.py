@@ -10,6 +10,7 @@ from flask import Flask, render_template, jsonify, redirect
 
 import os
 SECRET_KEY = os.urandom(32)
+UPLOAD_FOLDER = 'vaccine-map\photo-submission'
 
 app = Flask(__name__)
 
@@ -18,14 +19,15 @@ client = MongoClient('', ssl=True,ssl_cert_reqs='CERT_NONE')
 mydb = client["smartcitizen"]
 mycol = mydb["zipCodes"]
 
-myquery = {"properties.GEOID10": "90040"}
+myquery = {"properties.GEOID10": "90723"}
 
 mydoc = mycol.find(myquery)
 
 class MyForm(FlaskForm):
-    name = StringField('name', validators=[DataRequired()])
+    name = StringField('Name:', validators=[DataRequired()])
 
 app.config['SECRET_KEY'] = SECRET_KEY
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/')
 def home():
