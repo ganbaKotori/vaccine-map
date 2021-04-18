@@ -1,9 +1,35 @@
+
 from flask import Flask, render_template, request
+
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired
 from wtforms import StringField
 from wtforms.validators import DataRequired
+
 from werkzeug.utils import secure_filename
+
+from flask_pymongo import PyMongo
+from pymongo import MongoClient
+from flask import Flask, render_template, jsonify, redirect
+import mysql.connector
+
+from secrets import mysql_host, password, database
+
+mydb = mysql.connector.connect(
+  host=mysql_host,
+  user="root",
+  password=password,
+  database=database
+)
+
+mycursor = mydb.cursor()
+
+sql = "INSERT INTO vaccine_posts (name, lat_lon, image) VALUES (%s, %s, %s)"
+val = ("John", "34.213, -123.2352", "image url")
+mycursor.execute(sql, val)
+
+mydb.commit()
+
 
 import os
 
@@ -23,29 +49,37 @@ class Photo(FlaskForm):
 
 app = Flask(__name__)
 
+
+#client = MongoClient('', ssl=True,ssl_cert_reqs='CERT_NONE')
+#mydb = client["smartcitizen"]
+#mycol = mydb["zipCodes"]
+#myquery = {"properties.GEOID10": "90040"}
+#mydoc = mycol.find(myquery)
+
 app.config['SECRET_KEY'] = SECRET_KEY
+
 
 @app.route('/')
 def home():
     #form = MyForm()
     #if form.validate_on_submit():
     #    return redirect('/success')
+    mycursor = mydb.cursor()
+    mycursor.execute("SELECT * FROM vaccine_posts")
+    myresult = mycursor.fetchall()
+    for x in myresult:
+        print(x)
     return render_template(
         'index.html',
         title="Vaccine Maps",
         description="Check a vaccine heat map"
     )
-    
-
-#@app.route('/upload', methods=['GET', 'POST'])
-#def upload_file():
-#    form = MyForm()
-#    if form.validate_on_submit():
-        #filename = secure_filename(form.file.data.filename)
-        #form.file.data.save('uploads/' + filename)
-#        f = form.request.files['file']
-#        f.save(secure_filename(f.filename))
-    
+ 
+#@app.route("/zip-code")
+#def getZipCodePolygon():
+    #zipcode = db.zipCodes.find({"properties.GEOID10": "90040"})
+    #print(zipcode)
+    #return jsonify([todo for todo in zipcode])
 
 @app.route('/upload', methods = ['GET', 'POST'])
 def upload_file():
@@ -60,3 +94,4 @@ def upload_file():
   
 if __name__ == '__main__':
     app.run()
+
